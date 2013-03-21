@@ -474,8 +474,8 @@
     </tr>
 </table>
 </blockquote>
-<h2>Examining System Properties</h2>
-<%
+<%-- Disabled by AO Industries: <h2>Examining System Properties</h2> --%>
+<%-- Disabled by AO Industries:
     /**
      * Dump the system properties
      */
@@ -499,7 +499,7 @@
     } else {
         out.write("System properties are not accessible<p>");
     }
-%>
+--%>
 
 <jsp:include page="include/footer.inc"/>
 </body>
