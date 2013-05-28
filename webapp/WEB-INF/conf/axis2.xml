@@ -200,15 +200,18 @@
          http://axis.apache.org/axis2/java/core/docs/servlet-transport.html -->
     <!--<transportReceiver name="http"
                        class="org.apache.axis2.transport.http.AxisServletListener"/>-->
-    <!-- TODO: Disable dev HTTP in production -->
+    <!-- Disable dev HTTP in production -->
+    <!--
     <transportReceiver name="http" class="org.apache.axis2.transport.http.AxisServletListener">
         <parameter name="port">11156</parameter>
-        <parameter name="hostname">http://localhost:11156</parameter>
+        <parameter name="httpFrontendHostUrl">http://localhost:11156</parameter>
     </transportReceiver>
+    -->
+
     <!-- Production HTTPS -->
     <transportReceiver name="https" class="org.apache.axis2.transport.http.AxisServletListener">
         <parameter name="port">443</parameter>
-        <parameter name="hostname">https://www.aoindustries.com</parameter>
+        <parameter name="httpFrontendHostUrl">https://www.aoindustries.com</parameter>
     </transportReceiver>
 
     <!--Uncomment if you want to have TCP transport support-->
