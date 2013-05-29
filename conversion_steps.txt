@@ -1,0 +1,70 @@
+Type conversions:
+
+S: SchemaType Finished
+U: Uses Finished
+
+S	U	ACCOUNTING             =  0, // com.aoindustries.aoserv.client.validator.AccountingCode
+S	U	BOOLEAN                =  1, // boolean/java.lang.Boolean
+S	U	DATE                   =  5, // java.sql.Date
+		DECIMAL_2              =  6, // java.math.BigDecimal
+		DECIMAL_3              =  7, // java.math.BigDecimal
+S	U	DOUBLE                 =  8, // double/java.lang.Double
+		EMAIL                  =  9, // com.aoindustries.aoserv.client.validator.Email
+S	U	FKEY                   = 10, // int/java.lang.Integer
+S	U	FLOAT                  = 11, // float/java.lang.Float
+S	U	HOSTNAME               = 12, // com.aoindustries.aoserv.client.validator.HostAddress
+S	U	INT                    = 13, // int/java.lang.Integer
+S	U	INTERVAL               = 14, // long/java.lang.Long
+S	U	IP_ADDRESS             = 15, // com.aoindustries.aoserv.client.validator.InetAddress
+S	U	LONG                   = 16, // long/java.lang.Long
+S	U	OCTAL_LONG             = 18, // long/java.lang.Long
+		PACKAGE                = 19, // com.aoindustries.aoserv.client.validator.AccountingCode
+S	U	PKEY                   = 20, // int/java.lang.Integer
+		PATH                   = 21, // com.aoindustries.aoserv.client.validator.UnixPath
+S	U	PHONE                  = 22, // java.lang.String
+S	U	SHORT                  = 23, // short/java.lang.Short
+S		STRING                 = 25, // java.lang.String
+S	U	TIME                   = 26, // java.sql.Timestamp
+		URL                    = 27, // java.net.URL
+		USERNAME               = 28, // com.aoindustries.aoserv.client.validator.UserId
+		ZONE                   = 30, // com.aoindustries.aoserv.client.validator.DomainName -> Then remove it after making sure has trailing . in proper places
+S	U	BIG_DECIMAL            = 31, // java.math.BigDecimal
+S		DOMAIN_LABEL           = 32, // com.aoindustries.aoserv.client.validator.DomainLabel
+S		DOMAIN_LABELS          = 33, // com.aoindustries.aoserv.client.validator.DomainLabels
+S		DOMAIN_NAME            = 34, // com.aoindustries.aoserv.client.validator.DomainName
+S	U	GECOS                  = 35, // com.aoindustries.aoserv.client.validator.Gecos
+S		GROUP_ID               = 36, // com.aoindustries.aoserv.client.validator.GroupId
+S		HASHED_PASSWORD        = 37, // com.aoindustries.aoserv.client.validator.HashedPassword
+S		LINUX_ID               = 38, // com.aoindustries.aoserv.client.validator.LinuxId
+S		MAC_ADDRESS            = 39, // com.aoindustries.aoserv.client.validator.MacAddress
+S		MONEY                  = 40, // com.aoindustries.util.i18n.Money
+		MYSQL_DATABASE_NAME    = 41, // com.aoindustries.aoserv.client.validator.MySQLDatabaseName
+		MYSQL_SERVER_NAME      = 42, // com.aoindustries.aoserv.client.validator.MySQLServerName
+		MYSQL_TABLE_NAME       = 43, // com.aoindustries.aoserv.client.validator.MySQLTableName
+		MYSQL_USERNAME         = 44, // com.aoindustries.aoserv.client.validator.MySQLUserId
+		NET_PORT               = 45, // com.aoindustries.aoserv.client.validator.NetPort
+		POSTGRES_DATABASE_NAME = 46, // com.aoindustries.aoserv.client.validator.PostgresDatabaseName
+		POSTGRES_SERVER_NAME   = 47, // com.aoindustries.aoserv.client.validator.PostgresServerName
+		POSTGRES_USERNAME      = 48  // com.aoindustries.aoserv.client.validator.PostgresUserId
+
+
+
+Each:
+
+1) All exceptions include cause
+2) Use validator types
+3) No more @version
+4) No more wildcard imports
+5) Update copyright
+6) long to Date/Timestamp
+
+Later:
+
+1) pkey -> id
+2) Change all exceptions to RemoteException
+3) No more @version on all
+4) No more wildcard imports on all
+
+
+
+aoindustries=> select table_name, column_name, type from schema_columns where type='int' and last_version is null order by table_name, index;
