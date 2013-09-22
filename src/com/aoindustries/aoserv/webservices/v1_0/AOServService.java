@@ -16,7 +16,7 @@ import com.aoindustries.security.AccountNotFoundException;
 import com.aoindustries.security.BadPasswordException;
 import com.aoindustries.security.LoginException;
 import com.aoindustries.util.ErrorPrinter;
-import com.aoindustries.util.i18n.LocaleUtil;
+import com.aoindustries.util.i18n.Locales;
 import com.aoindustries.util.i18n.ThreadLocale;
 import com.aoindustries.ws.WsEncoder;
 import java.beans.IntrospectionException;
@@ -71,7 +71,7 @@ public class AOServService {
 
     private static Locale getLocale(Credentials credentials) {
         String localeName = nullIfEmpty(credentials.getLocale());
-        return localeName==null ? Locale.getDefault() : LocaleUtil.parseLocale(localeName);
+        return localeName==null ? Locale.getDefault() : Locales.parseLocale(localeName);
     }
 
     /**
