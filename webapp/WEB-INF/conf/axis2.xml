@@ -211,7 +211,7 @@
     <!-- Production HTTPS -->
     <transportReceiver name="https" class="org.apache.axis2.transport.http.AxisServletListener">
         <parameter name="port">443</parameter>
-        <parameter name="httpFrontendHostUrl">https://www.aoindustries.com</parameter>
+        <parameter name="httpFrontendHostUrl">https://aoindustries.com</parameter>
     </transportReceiver>
 
     <!--Uncomment if you want to have TCP transport support-->
