@@ -1,16 +1,37 @@
 /*
- * Copyright 2009-2013 by AO Industries, Inc.,
+ * Copyright 2009-2013, 2017 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 package com.aoindustries.aoserv.webservices.v1_0;
 
 import com.aoindustries.aoserv.client.AOServConnector;
-import com.aoindustries.aoserv.client.DtoFactory;
-import com.aoindustries.aoserv.client.validator.ValidationException;
-import com.aoindustries.aoserv.client.dto.*;
-import com.aoindustries.aoserv.client.validator.ValidationResult;
+import com.aoindustries.aoserv.client.dto.AOServer;
+import com.aoindustries.aoserv.client.dto.AOServerDaemonHost;
+import com.aoindustries.aoserv.client.dto.AccountingCode;
+import com.aoindustries.aoserv.client.dto.Gecos;
+import com.aoindustries.aoserv.client.dto.GroupId;
+import com.aoindustries.aoserv.client.dto.HashedPassword;
+import com.aoindustries.aoserv.client.dto.LinuxId;
+import com.aoindustries.aoserv.client.dto.MySQLDatabaseName;
+import com.aoindustries.aoserv.client.dto.MySQLServerName;
+import com.aoindustries.aoserv.client.dto.MySQLTableName;
+import com.aoindustries.aoserv.client.dto.MySQLUserId;
+import com.aoindustries.aoserv.client.dto.PostgresDatabaseName;
+import com.aoindustries.aoserv.client.dto.PostgresServerName;
+import com.aoindustries.aoserv.client.dto.PostgresUserId;
+import com.aoindustries.aoserv.client.dto.UnixPath;
+import com.aoindustries.aoserv.client.dto.UserId;
+import com.aoindustries.dto.DtoFactory;
 import com.aoindustries.lang.NullArgumentException;
+import com.aoindustries.net.dto.DomainLabel;
+import com.aoindustries.net.dto.DomainLabels;
+import com.aoindustries.net.dto.DomainName;
+import com.aoindustries.net.dto.Email;
+import com.aoindustries.net.dto.HostAddress;
+import com.aoindustries.net.dto.InetAddress;
+import com.aoindustries.net.dto.MacAddress;
+import com.aoindustries.net.dto.Port;
 import com.aoindustries.security.AccountDisabledException;
 import com.aoindustries.security.AccountNotFoundException;
 import com.aoindustries.security.BadPasswordException;
@@ -18,6 +39,8 @@ import com.aoindustries.security.LoginException;
 import com.aoindustries.util.ErrorPrinter;
 import com.aoindustries.util.i18n.Locales;
 import com.aoindustries.util.i18n.ThreadLocale;
+import com.aoindustries.validation.ValidationException;
+import com.aoindustries.validation.ValidationResult;
 import com.aoindustries.ws.WsEncoder;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -247,7 +270,7 @@ public class AOServService {
         try {
             ThreadLocale.set(getLocale(credentials));
             AOServConnector conn = getConnector(credentials); // Checks authentication
-            ValidationResult result = com.aoindustries.aoserv.client.validator.DomainLabel.validate(label.getLabel());
+            ValidationResult result = com.aoindustries.net.DomainLabel.validate(label.getLabel());
             return result.isValid() ? null : result.toString();
         } finally {
             ThreadLocale.set(oldLocale);
@@ -259,7 +282,7 @@ public class AOServService {
         try {
             ThreadLocale.set(getLocale(credentials));
             AOServConnector conn = getConnector(credentials); // Checks authentication
-            ValidationResult result = com.aoindustries.aoserv.client.validator.DomainLabels.validate(labels.getLabels());
+            ValidationResult result = com.aoindustries.net.DomainLabels.validate(labels.getLabels());
             return result.isValid() ? null : result.toString();
         } finally {
             ThreadLocale.set(oldLocale);
@@ -271,7 +294,7 @@ public class AOServService {
         try {
             ThreadLocale.set(getLocale(credentials));
             AOServConnector conn = getConnector(credentials); // Checks authentication
-            ValidationResult result = com.aoindustries.aoserv.client.validator.DomainName.validate(domain.getDomain());
+            ValidationResult result = com.aoindustries.net.DomainName.validate(domain.getDomain());
             return result.isValid() ? null : result.toString();
         } finally {
             ThreadLocale.set(oldLocale);
@@ -283,7 +306,7 @@ public class AOServService {
         try {
             ThreadLocale.set(getLocale(credentials));
             AOServConnector conn = getConnector(credentials); // Checks authentication
-            ValidationResult result = com.aoindustries.aoserv.client.validator.Email.validate(email.getLocalPart(), email.getDomain().getDomain());
+            ValidationResult result = com.aoindustries.net.Email.validate(email.getLocalPart(), email.getDomain().getDomain());
             return result.isValid() ? null : result.toString();
         } finally {
             ThreadLocale.set(oldLocale);
@@ -331,7 +354,7 @@ public class AOServService {
         try {
             ThreadLocale.set(getLocale(credentials));
             AOServConnector conn = getConnector(credentials); // Checks authentication
-            ValidationResult result = com.aoindustries.aoserv.client.validator.HostAddress.validate(hostname.getAddress());
+            ValidationResult result = com.aoindustries.net.HostAddress.validate(hostname.getAddress());
             return result.isValid() ? null : result.toString();
         } finally {
             ThreadLocale.set(oldLocale);
@@ -343,7 +366,7 @@ public class AOServService {
         try {
             ThreadLocale.set(getLocale(credentials));
             AOServConnector conn = getConnector(credentials); // Checks authentication
-            ValidationResult result = com.aoindustries.aoserv.client.validator.InetAddress.validate(ip.getAddress());
+            ValidationResult result = com.aoindustries.net.InetAddress.validate(ip.getAddress());
             return result.isValid() ? null : result.toString();
         } finally {
             ThreadLocale.set(oldLocale);
@@ -367,7 +390,7 @@ public class AOServService {
         try {
             ThreadLocale.set(getLocale(credentials));
             AOServConnector conn = getConnector(credentials); // Checks authentication
-            ValidationResult result = com.aoindustries.aoserv.client.validator.MacAddress.validate(address.getAddress());
+            ValidationResult result = com.aoindustries.net.MacAddress.validate(address.getAddress());
             return result.isValid() ? null : result.toString();
         } finally {
             ThreadLocale.set(oldLocale);
@@ -422,12 +445,12 @@ public class AOServService {
         }
     }
 
-    public String validateNetPort(Credentials credentials, NetPort netPort) throws LoginException, RemoteException {
+    public String validatePort(Credentials credentials, Port port) throws LoginException, RemoteException {
         Locale oldLocale = ThreadLocale.get();
         try {
             ThreadLocale.set(getLocale(credentials));
             AOServConnector conn = getConnector(credentials); // Checks authentication
-            ValidationResult result = com.aoindustries.aoserv.client.validator.NetPort.validate(netPort.getPort());
+            ValidationResult result = com.aoindustries.net.Port.validate(port.getPort());
             return result.isValid() ? null : result.toString();
         } finally {
             ThreadLocale.set(oldLocale);
@@ -530,7 +553,8 @@ public class AOServService {
             ThreadLocale.set(oldLocale);
         }
     }
-    public AOServer[] getAoServers(Credentials credentials) throws LoginException, RemoteException {
+
+	public AOServer[] getAoServers(Credentials credentials) throws LoginException, RemoteException {
         Locale oldLocale = ThreadLocale.get();
         try {
             ThreadLocale.set(getLocale(credentials));
