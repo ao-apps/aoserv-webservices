@@ -37,9 +37,9 @@ TABLE.FULL_BLANK {
 }
 
 TABLE.LOG_IN_FORM{
-	height: 200px%;
+	height: 200px;
 	border:1px solid #000000;
-	width: 300px%;
+	width: 300px;
 	cellspacing:1px;
 	cellpadding:1px;
 	background-color: #f7f7f7 ;
