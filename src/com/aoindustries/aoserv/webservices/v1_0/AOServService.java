@@ -24,6 +24,7 @@ import com.aoindustries.aoserv.client.dto.UnixPath;
 import com.aoindustries.aoserv.client.dto.UserId;
 import com.aoindustries.dto.DtoFactory;
 import com.aoindustries.lang.NullArgumentException;
+import com.aoindustries.net.Protocol;
 import com.aoindustries.net.dto.DomainLabel;
 import com.aoindustries.net.dto.DomainLabels;
 import com.aoindustries.net.dto.DomainName;
@@ -159,8 +160,8 @@ public class AOServService {
             if(conn==null) {
                 try {
                     conn = AOServConnector.getConnector(
-                        switchUser.toString(),
-                        username.toString(),
+                        switchUser,
+                        username,
                         password,
                         null,
                         logger
@@ -173,9 +174,9 @@ public class AOServService {
                 } catch(IOException err) {
                     String message=err.getMessage();
                     if(message!=null) {
-                        if(message.indexOf("Unable to find BusinessAdministrator")!=-1) throw toLoginException(new AccountNotFoundException("Account Not Found"));
-                        if(message.indexOf("Connection attempted with invalid password")!=-1) throw toLoginException(new BadPasswordException("Incorrect Password"));
-                        if(message.indexOf("BusinessAdministrator disabled")!=-1) throw toLoginException(new AccountDisabledException("Account Disabled"));
+                        if(message.contains("Unable to find BusinessAdministrator")) throw toLoginException(new AccountNotFoundException("Account Not Found"));
+                        if(message.contains("Connection attempted with invalid password")) throw toLoginException(new BadPasswordException("Incorrect Password"));
+                        if(message.contains("BusinessAdministrator disabled")) throw toLoginException(new AccountDisabledException("Account Disabled"));
                     }
                     throw toRemoteException(err);
                 } catch(SQLException err) {
@@ -450,7 +451,10 @@ public class AOServService {
         try {
             ThreadLocale.set(getLocale(credentials));
             AOServConnector conn = getConnector(credentials); // Checks authentication
-            ValidationResult result = com.aoindustries.net.Port.validate(port.getPort());
+            ValidationResult result = com.aoindustries.net.Port.validate(
+				port.getPort(),
+				Protocol.valueOf(port.getProtocol())
+			);
             return result.isValid() ? null : result.toString();
         } finally {
             ThreadLocale.set(oldLocale);
