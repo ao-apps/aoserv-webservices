@@ -1,11 +1,11 @@
 /*
- * Copyright 2009-2013 by AO Industries, Inc.,
+ * Copyright 2009-2013, 2017 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 package com.aoindustries.aoserv.webservices.v1_0;
 
-import com.aoindustries.aoserv.client.dto.UserId;
+import com.aoindustries.aoserv.client.dto.UserName;
 
 /**
  * @author  AO Industries, Inc.
@@ -13,9 +13,9 @@ import com.aoindustries.aoserv.client.dto.UserId;
 public class Credentials {
 
     private String locale;
-    private UserId username;
+    private UserName username;
     private String password;
-    private UserId switchUser;
+    private UserName switchUser;
 
     public String getLocale() {
         return locale;
@@ -25,11 +25,11 @@ public class Credentials {
         this.locale = locale;
     }
 
-    public UserId getUsername() {
+    public UserName getUsername() {
         return username;
     }
 
-    public void setUsername(UserId username) {
+    public void setUsername(UserName username) {
         this.username = username;
     }
 
@@ -41,11 +41,11 @@ public class Credentials {
         this.password = password;
     }
 
-    public UserId getSwitchUser() {
+    public UserName getSwitchUser() {
         return switchUser;
     }
 
-    public void setSwitchUser(UserId switchUser) {
+    public void setSwitchUser(UserName switchUser) {
         this.switchUser = switchUser;
     }
 }
