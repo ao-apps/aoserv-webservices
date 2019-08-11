@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2013, 2017, 2018 by AO Industries, Inc.,
+ * Copyright 2009-2013, 2017, 2018, 2019 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -49,7 +49,6 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -170,7 +169,7 @@ public class AOServService {
                     conn.ping();
                     AOServConnector existing = connectorCache.putIfAbsent(cacheKey, conn);
                     if(existing!=null) conn = existing;
-                } catch(RemoteException err) {
+                } catch(RuntimeException | RemoteException | SQLException err) {
                     throw toRemoteException(err);
                 } catch(IOException err) {
                     String message=err.getMessage();
@@ -180,12 +179,10 @@ public class AOServService {
                         if(message.contains("BusinessAdministrator disabled")) throw toLoginException(new AccountDisabledException("Account Disabled"));
                     }
                     throw toRemoteException(err);
-                } catch(SQLException err) {
-                    throw toRemoteException(err);
                 }
             }
             return conn;
-        } catch(ValidationException err) {
+        } catch(RuntimeException | ValidationException err) {
             throw toRemoteException(err);
         }
     }
@@ -195,7 +192,7 @@ public class AOServService {
         PropertyDescriptor[] props = stringProperties.get(type);
         if(props==null) {
             PropertyDescriptor[] allProps = Introspector.getBeanInfo(type, Object.class).getPropertyDescriptors();
-            List<PropertyDescriptor> newStringProps = new ArrayList<PropertyDescriptor>(allProps.length);
+            List<PropertyDescriptor> newStringProps = new ArrayList<>(allProps.length);
             for(PropertyDescriptor property : allProps) {
                 if(property.getPropertyType()==String.class) {
                     newStringProps.add(property);
@@ -235,7 +232,10 @@ public class AOServService {
                 for(PropertyDescriptor property : stringProps) {
                     String value = (String)property.getReadMethod().invoke(dto);
                     String encoded = WsEncoder.encode(value);
-                    if(encoded!=value) {
+                    if(
+						// String identity equals intentional:
+						encoded != value
+					) {
                         //System.out.println("WsEncoded: "+dtoFactory.getClass().getName()+": "+dtoFactory);
                         property.getWriteMethod().invoke(dto, encoded);
                     }
@@ -244,11 +244,7 @@ public class AOServService {
             }
             if(index!=size) throw new AssertionError("index!=size: "+index+"!="+size);
             return array;
-        } catch(IntrospectionException err) {
-            throw toRemoteException(err);
-        } catch(IllegalAccessException err) {
-            throw toRemoteException(err);
-        } catch(InvocationTargetException err) {
+        } catch(RuntimeException | IntrospectionException | ReflectiveOperationException err) {
             throw toRemoteException(err);
         }
     }
@@ -543,7 +539,7 @@ public class AOServService {
             AOServConnector conn = getConnector(credentials);
             try {
                 return com.aoindustries.aoserv.client.pki.HashedPassword.valueOf(hashedPassword.getHashedPassword()).passwordMatches(plaintext);
-            } catch(ValidationException err) {
+            } catch(RuntimeException | ValidationException err) {
                 throw toRemoteException(err);
             }
         } finally {
@@ -562,9 +558,7 @@ public class AOServService {
         try {
             ThreadLocale.set(getLocale(credentials));
             return getDtoArray(LinuxDaemonAcl.class, getConnector(credentials).getLinux().getDaemonAcl().getRows());
-        } catch(IOException err) {
-            throw toRemoteException(err);
-        } catch(SQLException err) {
+        } catch(RuntimeException | IOException | SQLException err) {
             throw toRemoteException(err);
         } finally {
             ThreadLocale.set(oldLocale);
@@ -576,9 +570,7 @@ public class AOServService {
         try {
             ThreadLocale.set(getLocale(credentials));
             return getDtoArray(LinuxServer.class, getConnector(credentials).getLinux().getServer().getRows());
-        } catch(IOException err) {
-            throw toRemoteException(err);
-        } catch(SQLException err) {
+        } catch(RuntimeException | IOException | SQLException err) {
             throw toRemoteException(err);
         } finally {
             ThreadLocale.set(oldLocale);
