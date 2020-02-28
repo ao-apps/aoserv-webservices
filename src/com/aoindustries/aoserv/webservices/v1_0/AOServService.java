@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2013, 2017, 2018, 2019 by AO Industries, Inc.,
+ * Copyright 2009-2013, 2017, 2018, 2019, 2020 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -57,7 +57,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.logging.Logger;
 
 /**
  * Exposes the connector configured in aoserv-client.properties as a web service.
@@ -70,8 +69,6 @@ import java.util.logging.Logger;
  * It works, but is less efficient due to everything being wrapped in client side.
  */
 public class AOServService {
-
-    private static final Logger logger = Logger.getLogger(AOServService.class.getName());
 
     // <editor-fold defaultstate="collapsed" desc="Exception conversion">
     private static RemoteException toRemoteException(Throwable T) {
@@ -163,8 +160,7 @@ public class AOServService {
                         switchUser,
                         username,
                         password,
-                        null,
-                        logger
+                        null
                     );
                     conn.ping();
                     AOServConnector existing = connectorCache.putIfAbsent(cacheKey, conn);
