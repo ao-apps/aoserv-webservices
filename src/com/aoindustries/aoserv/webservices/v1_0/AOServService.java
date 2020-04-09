@@ -34,10 +34,6 @@ import com.aoindustries.net.dto.HostAddress;
 import com.aoindustries.net.dto.InetAddress;
 import com.aoindustries.net.dto.MacAddress;
 import com.aoindustries.net.dto.Port;
-import com.aoindustries.security.AccountDisabledException;
-import com.aoindustries.security.AccountNotFoundException;
-import com.aoindustries.security.BadPasswordException;
-import com.aoindustries.security.LoginException;
 import com.aoindustries.util.ErrorPrinter;
 import com.aoindustries.util.i18n.Locales;
 import com.aoindustries.util.i18n.ThreadLocale;
@@ -57,6 +53,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import javax.security.auth.login.AccountLockedException;
+import javax.security.auth.login.AccountNotFoundException;
+import javax.security.auth.login.FailedLoginException;
+import javax.security.auth.login.LoginException;
 
 /**
  * Exposes the connector configured in aoserv-client.properties as a web service.
@@ -171,8 +171,8 @@ public class AOServService {
                     String message=err.getMessage();
                     if(message!=null) {
                         if(message.contains("Unable to find BusinessAdministrator")) throw toLoginException(new AccountNotFoundException("Account Not Found"));
-                        if(message.contains("Connection attempted with invalid password")) throw toLoginException(new BadPasswordException("Incorrect Password"));
-                        if(message.contains("BusinessAdministrator disabled")) throw toLoginException(new AccountDisabledException("Account Disabled"));
+                        if(message.contains("Connection attempted with invalid password")) throw toLoginException(new FailedLoginException("Incorrect Password"));
+                        if(message.contains("BusinessAdministrator disabled")) throw toLoginException(new AccountLockedException("Account Disabled"));
                     }
                     throw toRemoteException(err);
                 }
