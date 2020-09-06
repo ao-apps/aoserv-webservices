@@ -45,6 +45,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -213,6 +214,7 @@ public class AOServService {
     /**
      * Converts the collection to an array of data transfer objects in arbitrary order.
      */
+	@SuppressWarnings({"UseSpecificCatch", "TooBroadCatch"})
     static <T> T[] getDtoArray(Class<T> clazz, Collection<? extends DtoFactory<? extends T>> set) throws RemoteException {
         try {
             int size = set.size();
@@ -240,8 +242,13 @@ public class AOServService {
             }
             if(index!=size) throw new AssertionError("index!=size: "+index+"!="+size);
             return array;
-        } catch(RuntimeException | IntrospectionException | ReflectiveOperationException err) {
-            throw toRemoteException(err);
+		} catch(ThreadDeath td) {
+			throw td;
+		} catch(InvocationTargetException e) {
+			Throwable cause = e.getCause();
+            throw toRemoteException(cause == null ? e : cause);
+        } catch(Throwable t) {
+            throw toRemoteException(t);
         }
     }
     // </editor-fold>
