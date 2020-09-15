@@ -166,8 +166,8 @@ public class AOServService {
 					conn.ping();
 					AOServConnector existing = connectorCache.putIfAbsent(cacheKey, conn);
 					if(existing!=null) conn = existing;
-				} catch(RuntimeException | RemoteException | SQLException err) {
-					throw toRemoteException(err);
+				} catch(ThreadDeath td) {
+					throw td;
 				} catch(IOException err) {
 					String message=err.getMessage();
 					if(message!=null) {
@@ -176,11 +176,15 @@ public class AOServService {
 						if(message.contains("BusinessAdministrator disabled")) throw toLoginException(new AccountLockedException("Account Disabled"));
 					}
 					throw toRemoteException(err);
+				} catch(Throwable t) {
+					throw toRemoteException(t);
 				}
 			}
 			return conn;
-		} catch(RuntimeException | ValidationException err) {
-			throw toRemoteException(err);
+		} catch(ThreadDeath | LoginException | RemoteException td) {
+			throw td;
+		} catch(Throwable t) {
+			throw toRemoteException(t);
 		}
 	}
 
@@ -542,8 +546,10 @@ public class AOServService {
 			AOServConnector conn = getConnector(credentials);
 			try {
 				return com.aoindustries.aoserv.client.pki.HashedPassword.valueOf(hashedPassword.getHashedPassword()).passwordMatches(plaintext);
-			} catch(RuntimeException | ValidationException err) {
-				throw toRemoteException(err);
+			} catch(ThreadDeath td) {
+				throw td;
+			} catch(Throwable t) {
+				throw toRemoteException(t);
 			}
 		} finally {
 			ThreadLocale.set(oldLocale);
@@ -561,8 +567,10 @@ public class AOServService {
 		try {
 			ThreadLocale.set(getLocale(credentials));
 			return getDtoArray(LinuxDaemonAcl.class, getConnector(credentials).getLinux().getDaemonAcl().getRows());
-		} catch(RuntimeException | IOException | SQLException err) {
-			throw toRemoteException(err);
+		} catch(ThreadDeath | LoginException | RemoteException e) {
+			throw e;
+		} catch(Throwable t) {
+			throw toRemoteException(t);
 		} finally {
 			ThreadLocale.set(oldLocale);
 		}
@@ -573,8 +581,10 @@ public class AOServService {
 		try {
 			ThreadLocale.set(getLocale(credentials));
 			return getDtoArray(LinuxServer.class, getConnector(credentials).getLinux().getServer().getRows());
-		} catch(RuntimeException | IOException | SQLException err) {
-			throw toRemoteException(err);
+		} catch(ThreadDeath | LoginException | RemoteException e) {
+			throw e;
+		} catch(Throwable t) {
+			throw toRemoteException(t);
 		} finally {
 			ThreadLocale.set(oldLocale);
 		}
