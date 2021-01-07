@@ -120,7 +120,7 @@ public class AOServService {
 	static class ConnectorCacheKey {
 
 		private final com.aoindustries.aoserv.client.account.User.Name username;
-		private final String password;
+		private final String password; // TODO: Store as Password object or char[], destroy when evicting from cache or shutting down service, length-constant comparisons
 		private final com.aoindustries.aoserv.client.account.User.Name switchUser;
 		private final int hash;
 
@@ -145,7 +145,7 @@ public class AOServService {
 			ConnectorCacheKey other = (ConnectorCacheKey)obj;
 			return
 				// hash check shortcut
-				hash==other.hash
+				hash==other.hash // TODO: No shortcut for length-constant time?
 				// .equals fields
 				&& username.equals(other.username)
 				&& password.equals(other.password)
