@@ -53,7 +53,6 @@ import com.aoindustries.net.dto.MacAddress;
 import com.aoindustries.net.dto.Port;
 import com.aoindustries.util.ErrorPrinter;
 import com.aoindustries.util.i18n.Locales;
-import com.aoindustries.util.i18n.ThreadLocale;
 import com.aoindustries.validation.ValidationResult;
 import com.aoindustries.ws.WsEncoder;
 import java.beans.IntrospectionException;
@@ -274,290 +273,290 @@ public class AOServService {
 
 	// <editor-fold defaultstate="collapsed" desc="Validation">
 	public String validateAccountName(Credentials credentials, AccountName accounting) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.aoserv.client.account.Account.Name.validate(accounting.getAccounting());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validateDomainLabel(Credentials credentials, DomainLabel label) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.net.DomainLabel.validate(label.getLabel());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validateDomainLabels(Credentials credentials, DomainLabels labels) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.net.DomainLabels.validate(labels.getLabels());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validateDomainName(Credentials credentials, DomainName domain) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.net.DomainName.validate(domain.getDomain());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validateEmail(Credentials credentials, Email email) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.net.Email.validate(email.getLocalPart(), email.getDomain().getDomain());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validateGecos(Credentials credentials, Gecos gecos) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.aoserv.client.linux.User.Gecos.validate(gecos.getValue());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validateGroupName(Credentials credentials, LinuxGroupName groupName) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.aoserv.client.linux.Group.Name.validate(groupName.getName());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validateHashedPassword(Credentials credentials, HashedPassword hashedPassword) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.aoserv.client.pki.HashedPassword.validate(hashedPassword.getHashedPassword());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validateHostname(Credentials credentials, HostAddress hostname) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.net.HostAddress.validate(hostname.getAddress());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validateInetAddress(Credentials credentials, InetAddress ip) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.net.InetAddress.validate(ip.getAddress());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validateLinuxID(Credentials credentials, LinuxId linuxId) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.aoserv.client.linux.LinuxId.validate(linuxId.getId());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validateLinuxUserName(Credentials credentials, LinuxUserName name) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.aoserv.client.linux.User.Name.validate(name.getName());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validateMacAddress(Credentials credentials, MacAddress address) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.net.MacAddress.validate(address.getAddress());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validateMySQLDatabaseName(Credentials credentials, MySQLDatabaseName name) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.aoserv.client.mysql.Database.Name.validate(name.getName());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validateMySQLServerName(Credentials credentials, MySQLServerName name) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.aoserv.client.mysql.Server.Name.validate(name.getName());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validateMySQLTableName(Credentials credentials, MySQLTableName name) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.aoserv.client.mysql.Table_Name.validate(name.getName());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validateMySQLUserName(Credentials credentials, MySQLUserName name) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.aoserv.client.mysql.User.Name.validate(name.getName());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validatePort(Credentials credentials, Port port) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.net.Port.validate(
 				port.getPort(),
 				Protocol.valueOf(port.getProtocol())
 			);
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validatePostgresDatabaseName(Credentials credentials, PostgresDatabaseName name) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.aoserv.client.postgresql.Database.Name.validate(name.getName());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validatePostgresServerName(Credentials credentials, PostgresServerName name) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.aoserv.client.postgresql.Server.Name.validate(name.getName());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validatePostgresUserName(Credentials credentials, PostgresUserName userName) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.aoserv.client.postgresql.User.Name.validate(userName.getName());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validatePosixPath(Credentials credentials, PosixPath posixPath) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.aoserv.client.linux.PosixPath.validate(posixPath.getPath());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 
 	public String validateUserName(Credentials credentials, UserName name) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
 			ValidationResult result = com.aoindustries.aoserv.client.account.User.Name.validate(name.toString());
 			return result.isValid() ? null : result.toString();
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 	// </editor-fold>
 
 	// <editor-fold defaultstate="collapsed" desc="Passwords">
 	public boolean passwordMatches(Credentials credentials, HashedPassword hashedPassword, String plaintext) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
-		try {
-			ThreadLocale.set(getLocale(credentials));
+		// Java 8: Locale oldLocale = ThreadLocale.get();
+		// Java 8: try {
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials);
 			try {
 				return com.aoindustries.aoserv.client.pki.HashedPassword.valueOf(hashedPassword.getHashedPassword()).passwordMatches(plaintext);
@@ -566,9 +565,9 @@ public class AOServService {
 			} catch(Throwable t) {
 				throw toRemoteException(t);
 			}
-		} finally {
-			ThreadLocale.set(oldLocale);
-		}
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
+		// Java 8: }
 	}
 	// </editor-fold>
 
@@ -578,30 +577,30 @@ public class AOServService {
 
 	// <editor-fold defaultstate="collapsed" desc="Tables">
 	public LinuxDaemonAcl[] getLinuxDaemonAcl(Credentials credentials) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
+		// Java 8: Locale oldLocale = ThreadLocale.get();
 		try {
-			ThreadLocale.set(getLocale(credentials));
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			return getDtoArray(LinuxDaemonAcl.class, getConnector(credentials).getLinux().getDaemonAcl().getRows());
 		} catch(ThreadDeath | LoginException | RemoteException e) {
 			throw e;
 		} catch(Throwable t) {
 			throw toRemoteException(t);
-		} finally {
-			ThreadLocale.set(oldLocale);
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
 		}
 	}
 
 	public LinuxServer[] getLinuxServer(Credentials credentials) throws LoginException, RemoteException {
-		Locale oldLocale = ThreadLocale.get();
+		// Java 8: Locale oldLocale = ThreadLocale.get();
 		try {
-			ThreadLocale.set(getLocale(credentials));
+			// Java 8: ThreadLocale.set(getLocale(credentials));
 			return getDtoArray(LinuxServer.class, getConnector(credentials).getLinux().getServer().getRows());
 		} catch(ThreadDeath | LoginException | RemoteException e) {
 			throw e;
 		} catch(Throwable t) {
 			throw toRemoteException(t);
-		} finally {
-			ThreadLocale.set(oldLocale);
+		// Java 8: } finally {
+			// Java 8: ThreadLocale.set(oldLocale);
 		}
 	}
 	// </editor-fold>
