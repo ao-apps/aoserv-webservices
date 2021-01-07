@@ -37,6 +37,7 @@ along with aoserv-webservices.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2021-01-07T08:35:54-06:00"
+		dateModified="2021-01-07T17:17:55-06:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -48,17 +49,6 @@ along with aoserv-webservices.  If not, see <http://www.gnu.org/licenses />.
 			>
 				<ul>
 					<li>Project moved to GitHub and Maven.</li>
-					<li>
-						<p>
-							Minimum Java version reverted from 1.8 back to 1.7 for compatibility with Axis2.
-							The dependencies, however, are still Java 1.8+, so Java 1.8 is still required at runtime.
-						</p>
-						<p>
-							This is solely a workaround for Axis2's surprising lack of support for Java 8, which had
-							the following error:
-						</p>
-						<pre>org.apache.axis2.deployment.DeploymentException: The following error occurred during schema generation: Error looking for paramter names in bytecode: unexpected bytes in file</pre>
-					</li>
 					<li>Updated dependencies.</li>
 					<li>Resolved editor warnings.</li>
 					<li>Selectively skipping build steps for <code>*-SNAPSHOT</code> builds.</li>

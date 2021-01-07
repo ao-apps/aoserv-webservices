@@ -38,9 +38,6 @@ along with aoserv-webservices.  If not, see <http://www.gnu.org/licenses />.
 		<documented.name>AOServ Webservices</documented.name>
 		<documented.shortTitle>Webservices</documented.shortTitle>
 		<documented.description>SOAP web services for the AOServ Platform.</documented.description>
-		<!-- Axis2 does not yet support Java 8 -->
-		<documented.javase.version>1.7</documented.javase.version>
-		<documented.javadoc.link.javase>${javadoc.link.javase.7}</documented.javadoc.link.javase>
 
 		<description.html><![CDATA[Documentation for <a target="${javadoc.target}" href="${project.url}">${documented.name}</a> in <a target="${javadoc.target}" href="https://semanticcms.com/">SemanticCMS</a> format.]]></description.html>
 	</properties>

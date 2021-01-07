@@ -43,11 +43,6 @@ along with aoserv-webservices.  If not, see <http://www.gnu.org/licenses />.
 				<li><a target="${javadoc.target}" href="https://aoindustries.com/aoserv/webservices/webapp/">AOServ Webservices Webapp</a></li>
 			</ul>
 		</div>]]></javadoc.modules>
-		<!-- Axis2 does not yet support Java 8 -->
-		<javase.version>1.7</javase.version>
-		<javase.release>7</javase.release>
-		<javadoc.link.javase>${javadoc.link.javase.7}</javadoc.link.javase>
-		<javase.bootclasspath>${javase.bootclasspath.7}</javase.bootclasspath>
 	</properties>
 
 	<name>AOServ Webservices</name>
