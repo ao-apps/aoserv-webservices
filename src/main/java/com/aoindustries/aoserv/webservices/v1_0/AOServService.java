@@ -1,6 +1,6 @@
 /*
  * aoserv-webservices - SOAP web services for the AOServ Platform.
- * Copyright (C) 2009-2013, 2017, 2018, 2019, 2020  AO Industries, Inc.
+ * Copyright (C) 2009-2013, 2017, 2018, 2019, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -54,7 +54,6 @@ import com.aoindustries.net.dto.Port;
 import com.aoindustries.util.ErrorPrinter;
 import com.aoindustries.util.i18n.Locales;
 import com.aoindustries.util.i18n.ThreadLocale;
-import com.aoindustries.validation.ValidationException;
 import com.aoindustries.validation.ValidationResult;
 import com.aoindustries.ws.WsEncoder;
 import java.beans.IntrospectionException;
@@ -64,7 +63,6 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -235,7 +233,7 @@ public class AOServService {
 	/**
 	 * Converts the collection to an array of data transfer objects in arbitrary order.
 	 */
-	@SuppressWarnings({"UseSpecificCatch", "TooBroadCatch"})
+	@SuppressWarnings({"UseSpecificCatch", "TooBroadCatch", "StringEquality"})
 	static <T> T[] getDtoArray(Class<T> clazz, Collection<? extends DtoFactory<? extends T>> set) throws RemoteException {
 		try {
 			int size = set.size();
