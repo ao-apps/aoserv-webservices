@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+aoserv-webservices - SOAP web services for the AOServ Platform.
+Copyright (C) 2021  AO Industries, Inc.
+    support@aoindustries.com
+    7262 Bull Pen Cir
+    Mobile, AL 36695
+
+This file is part of aoserv-webservices.
+
+aoserv-webservices is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+aoserv-webservices is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with aoserv-webservices.  If not, see <http://www.gnu.org/licenses />.
+-->
+<jsp:root
+	xmlns:ao="https://aoindustries.com/ao-taglib/"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:changelog="https://semanticcms.com/changelog/taglib/"
+	xmlns:core="https://semanticcms.com/core/taglib/"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	version="2.1"
+>
+	<jsp:directive.page language="java" pageEncoding="UTF-8" />
+	<jsp:directive.page session="false" />
+	<core:page
+		title="@{documented.name} Changelog"
+		shortTitle="Changelog"
+		tocLevels="1"
+		datePublished="2021-01-07T08:35:54-06:00"
+	>
+		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
+			<changelog:release
+				projectName="@{documented.name}"
+				version="@{project.version}"
+				groupId="@{project.groupId}"
+				artifactId="@{documented.artifactId}"
+				scmUrl="@{project.scm.url}"
+			>
+				<ul>
+					<li>Project moved to GitHub and Maven.</li>
+					<li>
+						<p>
+							Minimum Java version reverted from 1.8 back to 1.7 for compatibility with Axis2.
+							The dependencies, however, are still Java 1.8+, so Java 1.8 is still required at runtime.
+						</p>
+						<p>
+							This is solely a workaround for Axis2's surprising lack of support for Java 8, which had
+							the following error:
+						</p>
+						<pre>org.apache.axis2.deployment.DeploymentException: The following error occurred during schema generation: Error looking for paramter names in bytecode: unexpected bytes in file</pre>
+					</li>
+					<li>Updated dependencies.</li>
+					<li>Selectively skipping build steps for <code>*-SNAPSHOT</code> builds.</li>
+				</ul>
+			</changelog:release>
+		</c:if>
+	</core:page>
+</jsp:root>
