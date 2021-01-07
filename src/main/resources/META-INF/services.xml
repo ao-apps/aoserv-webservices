@@ -1,24 +1,24 @@
 <serviceGroup>
-    <service name="AOServService_v1_0" scope="application">
-        <description>AOServService</description>
-        <messageReceivers>
-            <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only" class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver"/>
-            <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"  class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
-        </messageReceivers>
-        <parameter name="ServiceClass">com.aoindustries.aoserv.webservices.v1_0.AOServService</parameter>
-        <!--<parameter locked="false" name="useOriginalwsdl">true</parameter>-->
-        <!--<parameter locked="false" name="modifyUserWSDLPortAddress">false</parameter>-->
-    </service>
-    <!--
-    <service name="Summarizer_v1_1" scope="application">
-        <description>Summarizer</description>
-        <messageReceivers>
-            <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only" class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver"/>
-            <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"  class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
-        </messageReceivers>
-        <parameter name="ServiceClass">com.essentialmining.summarizer.webservices.v1_1.Summarizer</parameter>
-        <parameter locked="false" name="useOriginalwsdl">true</parameter>
-        <parameter locked="false" name="modifyUserWSDLPortAddress">false</parameter>
-    </service>
-    -->
+	<service name="AOServService_v1_0" scope="application">
+		<description>AOServService</description>
+		<messageReceivers>
+			<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only" class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver"/>
+			<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"  class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
+		</messageReceivers>
+		<parameter name="ServiceClass">com.aoindustries.aoserv.webservices.v1_0.AOServService</parameter>
+		<!--<parameter locked="false" name="useOriginalwsdl">true</parameter>-->
+		<!--<parameter locked="false" name="modifyUserWSDLPortAddress">false</parameter>-->
+	</service>
+	<!--
+	<service name="Summarizer_v1_1" scope="application">
+		<description>Summarizer</description>
+		<messageReceivers>
+			<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only" class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver"/>
+			<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"  class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
+		</messageReceivers>
+		<parameter name="ServiceClass">com.essentialmining.summarizer.webservices.v1_1.Summarizer</parameter>
+		<parameter locked="false" name="useOriginalwsdl">true</parameter>
+		<parameter locked="false" name="modifyUserWSDLPortAddress">false</parameter>
+	</service>
+	-->
 </serviceGroup>
