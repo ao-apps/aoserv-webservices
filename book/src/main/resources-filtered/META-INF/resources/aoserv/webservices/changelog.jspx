@@ -60,6 +60,7 @@ along with aoserv-webservices.  If not, see <http://www.gnu.org/licenses />.
 						<pre>org.apache.axis2.deployment.DeploymentException: The following error occurred during schema generation: Error looking for paramter names in bytecode: unexpected bytes in file</pre>
 					</li>
 					<li>Updated dependencies.</li>
+					<li>Resolved editor warnings.</li>
 					<li>Selectively skipping build steps for <code>*-SNAPSHOT</code> builds.</li>
 				</ul>
 			</changelog:release>

@@ -51,8 +51,6 @@ import com.aoindustries.net.dto.HostAddress;
 import com.aoindustries.net.dto.InetAddress;
 import com.aoindustries.net.dto.MacAddress;
 import com.aoindustries.net.dto.Port;
-import com.aoindustries.util.ErrorPrinter;
-import com.aoindustries.util.i18n.Locales;
 import com.aoindustries.validation.ValidationResult;
 import com.aoindustries.ws.WsEncoder;
 import java.beans.IntrospectionException;
@@ -65,9 +63,10 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.security.auth.login.AccountLockedException;
 import javax.security.auth.login.AccountNotFoundException;
 import javax.security.auth.login.FailedLoginException;
@@ -85,15 +84,17 @@ import javax.security.auth.login.LoginException;
  */
 public class AOServService {
 
+	private static final Logger logger = Logger.getLogger(AOServService.class.getName());
+
 	// <editor-fold defaultstate="collapsed" desc="Exception conversion">
 	private static RemoteException toRemoteException(Throwable T) {
-		ErrorPrinter.printStackTraces(T);
+		logger.log(Level.SEVERE, null, T);
 		if(T.getClass()==RemoteException.class && T.getCause()==null) return (RemoteException)T;
 		return new RemoteException(T.getLocalizedMessage());
 	}
 
 	private static LoginException toLoginException(Throwable T) {
-		ErrorPrinter.printStackTraces(T);
+		logger.log(Level.SEVERE, null, T);
 		if(T.getClass()==LoginException.class && T.getCause()==null) return (LoginException)T;
 		return new LoginException(T.getLocalizedMessage());
 	}
@@ -105,10 +106,12 @@ public class AOServService {
 		return value;
 	}
 
+	/* Java 8:
 	private static Locale getLocale(Credentials credentials) {
 		String localeName = nullIfEmpty(credentials.getLocale());
 		return localeName==null ? Locale.getDefault() : Locales.parseLocale(localeName);
 	}
+	 */
 
 	/**
 	 * Connectors are cached so the LoginException "ping" check is only called the first time.
@@ -156,6 +159,7 @@ public class AOServService {
 	 */
 	private static final ConcurrentMap<ConnectorCacheKey,AOServConnector> connectorCache = new ConcurrentHashMap<ConnectorCacheKey, AOServConnector>();
 
+	@SuppressWarnings({"UseSpecificCatch", "TooBroadCatch"})
 	private static AOServConnector getConnector(Credentials credentials) throws LoginException, RemoteException {
 		try {
 			com.aoindustries.aoserv.client.account.User.Name username = com.aoindustries.aoserv.client.account.User.Name.valueOf(credentials.getUsername().getName());
@@ -553,21 +557,20 @@ public class AOServService {
 	// </editor-fold>
 
 	// <editor-fold defaultstate="collapsed" desc="Passwords">
+	@SuppressWarnings({"UseSpecificCatch", "TooBroadCatch"})
 	public boolean passwordMatches(Credentials credentials, HashedPassword hashedPassword, String plaintext) throws LoginException, RemoteException {
 		// Java 8: Locale oldLocale = ThreadLocale.get();
-		// Java 8: try {
+		try {
 			// Java 8: ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials);
-			try {
-				return com.aoindustries.aoserv.client.pki.HashedPassword.valueOf(hashedPassword.getHashedPassword()).passwordMatches(plaintext);
-			} catch(ThreadDeath td) {
-				throw td;
-			} catch(Throwable t) {
-				throw toRemoteException(t);
-			}
+			return com.aoindustries.aoserv.client.pki.HashedPassword.valueOf(hashedPassword.getHashedPassword()).passwordMatches(plaintext);
+		} catch(ThreadDeath | LoginException e) {
+			throw e;
+		} catch(Throwable t) {
+			throw toRemoteException(t);
 		// Java 8: } finally {
 			// Java 8: ThreadLocale.set(oldLocale);
-		// Java 8: }
+		}
 	}
 	// </editor-fold>
 
@@ -576,6 +579,7 @@ public class AOServService {
 	// </editor-fold>
 
 	// <editor-fold defaultstate="collapsed" desc="Tables">
+	@SuppressWarnings({"UseSpecificCatch", "TooBroadCatch"})
 	public LinuxDaemonAcl[] getLinuxDaemonAcl(Credentials credentials) throws LoginException, RemoteException {
 		// Java 8: Locale oldLocale = ThreadLocale.get();
 		try {
@@ -590,6 +594,7 @@ public class AOServService {
 		}
 	}
 
+	@SuppressWarnings({"UseSpecificCatch", "TooBroadCatch"})
 	public LinuxServer[] getLinuxServer(Credentials credentials) throws LoginException, RemoteException {
 		// Java 8: Locale oldLocale = ThreadLocale.get();
 		try {
