@@ -25,6 +25,7 @@ package com.aoindustries.aoserv.webservices.v1_0;
 import com.aoindustries.aoserv.client.AOServConnector;
 import com.aoindustries.aoserv.client.dto.AccountName;
 import com.aoindustries.aoserv.client.dto.Gecos;
+import com.aoindustries.aoserv.client.dto.HashedKey;
 import com.aoindustries.aoserv.client.dto.HashedPassword;
 import com.aoindustries.aoserv.client.dto.LinuxDaemonAcl;
 import com.aoindustries.aoserv.client.dto.LinuxGroupName;
@@ -51,6 +52,7 @@ import com.aoindustries.net.dto.HostAddress;
 import com.aoindustries.net.dto.InetAddress;
 import com.aoindustries.net.dto.MacAddress;
 import com.aoindustries.net.dto.Port;
+import com.aoindustries.security.Password;
 import com.aoindustries.util.i18n.Locales;
 import com.aoindustries.util.i18n.ThreadLocale;
 import com.aoindustries.validation.ValidationResult;
@@ -361,13 +363,39 @@ public class AOServService {
 		}
 	}
 
+	public String validateHashedKey(Credentials credentials, HashedKey hashedKey) throws LoginException, RemoteException {
+		Locale oldLocale = ThreadLocale.get();
+		try {
+			ThreadLocale.set(getLocale(credentials));
+			AOServConnector conn = getConnector(credentials); // Checks authentication
+			try {
+				com.aoindustries.security.HashedKey.valueOf(hashedKey.getHashedKey());
+				return null;
+			} catch(IllegalArgumentException e) {
+				String message = e.getLocalizedMessage();
+				if(message == null || message.isEmpty()) message = e.getMessage();
+				if(message == null || message.isEmpty()) message = e.toString();
+				return message;
+			}
+		} finally {
+			ThreadLocale.set(oldLocale);
+		}
+	}
+
 	public String validateHashedPassword(Credentials credentials, HashedPassword hashedPassword) throws LoginException, RemoteException {
 		Locale oldLocale = ThreadLocale.get();
 		try {
 			ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials); // Checks authentication
-			ValidationResult result = com.aoindustries.aoserv.client.pki.HashedPassword.validate(hashedPassword.getHashedPassword());
-			return result.isValid() ? null : result.toString();
+			try {
+				com.aoindustries.security.HashedPassword.valueOf(hashedPassword.getHashedPassword());
+				return null;
+			} catch(IllegalArgumentException e) {
+				String message = e.getLocalizedMessage();
+				if(message == null || message.isEmpty()) message = e.getMessage();
+				if(message == null || message.isEmpty()) message = e.toString();
+				return message;
+			}
 		} finally {
 			ThreadLocale.set(oldLocale);
 		}
@@ -564,7 +592,7 @@ public class AOServService {
 		try {
 			ThreadLocale.set(getLocale(credentials));
 			AOServConnector conn = getConnector(credentials);
-			return com.aoindustries.aoserv.client.pki.HashedPassword.valueOf(hashedPassword.getHashedPassword()).passwordMatches(plaintext);
+			return com.aoindustries.security.HashedPassword.valueOf(hashedPassword.getHashedPassword()).matches(new Password(plaintext.toCharArray()));
 		} catch(ThreadDeath | LoginException e) {
 			throw e;
 		} catch(Throwable t) {
