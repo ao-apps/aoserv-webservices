@@ -37,7 +37,7 @@ along with aoserv-webservices.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2021-01-07T08:35:54-06:00"
-		dateModified="2021-02-04T16:34:25-06:00"
+		dateModified="2021-02-05T18:40:45-06:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -46,17 +46,26 @@ along with aoserv-webservices.  If not, see <http://www.gnu.org/licenses />.
 				groupId="@{project.groupId}"
 				artifactId="@{documented.artifactId}"
 				scmUrl="@{project.scm.url}"
-			>
-				<ul>
-					<li>Project moved to GitHub and Maven.</li>
-					<li>Updated dependencies.</li>
-					<li>Resolved editor warnings.</li>
-					<li>Selectively skipping build steps for <code>*-SNAPSHOT</code> builds.</li>
-					<li>New <code>"schema"."AoservProtocol"</code>: <code>1.84.13</code></li>
-					<li>New <code>"schema"."Type"</code>: <code>HashedKey</code></li>
-					<li>Removed <code>linux.Server.daemon_key</code>, now stored in <code>aoserv-daemon.properties</code></li>
-				</ul>
-			</changelog:release>
+			/>
 		</c:if>
+
+		<changelog:release
+			projectName="@{documented.name}"
+			version="1.84.13"
+			datePublished="2021-02-05T18:40:45-06:00"
+			groupId="@{project.groupId}"
+			artifactId="@{documented.artifactId}"
+			scmUrl="@{project.scm.url}"
+		>
+			<ul>
+				<li>Project moved to GitHub and Maven.</li>
+				<li>Updated dependencies.</li>
+				<li>Resolved editor warnings.</li>
+				<li>Selectively skipping build steps for <code>*-SNAPSHOT</code> builds.</li>
+				<li>New <code>"schema"."AoservProtocol"</code>: <code>1.84.13</code></li>
+				<li>New <code>"schema"."Type"</code>: <code>HashedKey</code></li>
+				<li>Removed <code>linux.Server.daemon_key</code>, now stored in <code>aoserv-daemon.properties</code></li>
+			</ul>
+		</changelog:release>
 	</core:page>
 </jsp:root>
