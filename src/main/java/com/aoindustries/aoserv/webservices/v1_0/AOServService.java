@@ -160,7 +160,7 @@ public class AOServService {
 	/**
 	 * Cache of connectors.
 	 */
-	private static final ConcurrentMap<ConnectorCacheKey,AOServConnector> connectorCache = new ConcurrentHashMap<ConnectorCacheKey, AOServConnector>();
+	private static final ConcurrentMap<ConnectorCacheKey, AOServConnector> connectorCache = new ConcurrentHashMap<ConnectorCacheKey, AOServConnector>();
 
 	@SuppressWarnings({"UseSpecificCatch", "TooBroadCatch"})
 	private static AOServConnector getConnector(Credentials credentials) throws LoginException, RemoteException {
@@ -209,7 +209,7 @@ public class AOServService {
 		}
 	}
 
-	private static final ConcurrentMap<Class<?>,PropertyDescriptor[]> stringProperties = new ConcurrentHashMap<Class<?>,PropertyDescriptor[]>();
+	private static final ConcurrentMap<Class<?>, PropertyDescriptor[]> stringProperties = new ConcurrentHashMap<>();
 	private static PropertyDescriptor[] getStringProperties(Class<?> type) throws IntrospectionException {
 		PropertyDescriptor[] props = stringProperties.get(type);
 		if(props==null) {
