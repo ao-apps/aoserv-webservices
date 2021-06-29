@@ -10,8 +10,8 @@
 		<img src="https://aoindustries.com/ao-badges/packaging-developmental.svg" alt="packaging: developmental" />
 	</a>
 	<br />
-	<a href="https://docs.oracle.com/en/java/javase/11/docs/api/">
-		<img src="https://aoindustries.com/ao-badges/java-11.svg" alt="java: &gt;= 11" />
+	<a href="https://docs.oracle.com/javase/8/docs/api/">
+		<img src="https://aoindustries.com/ao-badges/java-8.svg" alt="java: &gt;= 8" />
 	</a>
 	<a href="https://www.gnu.org/licenses/lgpl-3.0">
 		<img src="https://aoindustries.com/ao-badges/license-lgpl-3.0.svg" alt="license: LGPL v3" />

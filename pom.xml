@@ -33,6 +33,14 @@ along with aoserv-webservices.  If not, see <http://www.gnu.org/licenses />.
 	<packaging>aar</packaging>
 
 	<properties>
+		<module.name>com.aoindustries.aoserv.webservices</module.name>
+		<!-- Stay on Java 1.8 since Axis fails with "Error looking for paramter names in bytecode: unexpected bytes in file". -->
+		<javase.version>1.8</javase.version>
+		<javase.release>8</javase.release>
+		<javadoc.link.javase>${javadoc.link.javase.8}</javadoc.link.javase>
+		<!-- This must be set in your ~/.m2/settings.xml when building with JDK < 9 -->
+		<javase.bootclasspath>${javase.bootclasspath.8}</javase.bootclasspath>
+
 		<javadoc.breadcrumbs><![CDATA[<a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ</a>
 / <a target="${javadoc.target}" href="${project.url}">Webservices</a>]]></javadoc.breadcrumbs>
 		<description.html><![CDATA[SOAP web services for the <a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ Platform</a>.]]></description.html>
@@ -103,6 +111,36 @@ along with aoserv-webservices.  If not, see <http://www.gnu.org/licenses />.
 
 	<build>
 		<plugins>
+			<!-- Java 1.8: see https://maven.apache.org/plugins/maven-compiler-plugin/examples/module-info.html -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<!-- compile everything to ensure module-info contains right entries -->
+					<execution>
+						<id>default-compile</id>
+						<configuration>
+							<release>9</release>
+						</configuration>
+					</execution>
+					<!-- recompile everything for target VM except the module-info.java -->
+					<execution>
+						<id>base-compile</id><goals><goal>compile</goal></goals>
+						<configuration>
+							<excludes>
+								<exclude>module-info.java</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<!-- Java 1.8: generate future-proof modular javadocs -->
+					<source>11</source>
+					<release>11</release>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.axis2</groupId><artifactId>axis2-aar-maven-plugin</artifactId>
 				<extensions>true</extensions>
