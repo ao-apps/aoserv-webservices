@@ -1,22 +1,10 @@
 # [<img src="ao-logo.png" alt="AO Logo" width="35" height="40">](https://github.com/aoindustries) [AOServ](https://aoindustries.com/aoserv/) / [Webservices](https://github.com/aoindustries/aoserv-webservices)
-<p>
-	<a href="https://aoindustries.com/life-cycle#project-alpha">
-		<img src="https://aoindustries.com/ao-badges/project-alpha.svg" alt="project: alpha" />
-	</a>
-	<a href="https://aoindustries.com/life-cycle#management-preview">
-		<img src="https://aoindustries.com/ao-badges/management-preview.svg" alt="management: preview" />
-	</a>
-	<a href="https://aoindustries.com/life-cycle#packaging-developmental">
-		<img src="https://aoindustries.com/ao-badges/packaging-developmental.svg" alt="packaging: developmental" />
-	</a>
-	<br />
-	<a href="https://docs.oracle.com/javase/8/docs/api/">
-		<img src="https://aoindustries.com/ao-badges/java-8.svg" alt="java: &gt;= 8" />
-	</a>
-	<a href="https://www.gnu.org/licenses/lgpl-3.0">
-		<img src="https://aoindustries.com/ao-badges/license-lgpl-3.0.svg" alt="license: LGPL v3" />
-	</a>
-</p>
+
+[![project: alpha](https://aoindustries.com/ao-badges/project-alpha.svg)](https://aoindustries.com/life-cycle#project-alpha)
+[![management: preview](https://aoindustries.com/ao-badges/management-preview.svg)](https://aoindustries.com/life-cycle#management-preview)
+[![packaging: developmental](https://aoindustries.com/ao-badges/packaging-developmental.svg)](https://aoindustries.com/life-cycle#packaging-developmental)  
+[![java: &gt;= 8](https://aoindustries.com/ao-badges/java-8.svg)](https://docs.oracle.com/javase/8/docs/api/)
+[![license: LGPL v3](https://aoindustries.com/ao-badges/license-lgpl-3.0.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 
 SOAP web services for the [AOServ Platform](https://aoindustries.com/aoserv/).
 
