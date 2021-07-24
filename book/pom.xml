@@ -29,7 +29,7 @@ along with aoserv-webservices.  If not, see <http://www.gnu.org/licenses />.
 		<relativePath>../../../oss/parent/pom.xml</relativePath>
 	</parent>
 
-	<groupId>com.aoindustries</groupId><artifactId>aoserv-webservices-book</artifactId><version>1.84.22-SNAPSHOT</version>
+	<groupId>com.aoindustries</groupId><artifactId>aoserv-webservices-book</artifactId><version>1.85.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<properties>
@@ -40,7 +40,7 @@ along with aoserv-webservices.  If not, see <http://www.gnu.org/licenses />.
 		<documented.description>SOAP web services for the AOServ Platform.</documented.description>
 
 		<description.html><![CDATA[Documentation for <a target="${javadoc.target}" href="${project.url}">${documented.name}</a> in <a target="${javadoc.target}" href="https://semanticcms.com/">SemanticCMS</a> format.]]></description.html>
-		<!-- TODO: Remove once moved to oss.aoapps.com -->
+		<!-- TODO: Remove once moved to platform.aoapps.com -->
 		<google.analytics.trackingId>UA-86871646-1</google.analytics.trackingId>
 		<!-- com.aoindustries is on original Sonatype Nexus Repository Manager -->
 		<nexusUrl>https://oss.sonatype.org/</nexusUrl>
