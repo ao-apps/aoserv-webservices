@@ -37,7 +37,7 @@ along with aoserv-webservices.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2021-01-07T08:35:54-06:00"
-		dateModified="2021-07-24T13:18:31-05:00"
+		dateModified="2021-08-09T15:57:01-05:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -47,7 +47,11 @@ along with aoserv-webservices.  If not, see <http://www.gnu.org/licenses />.
 				artifactId="@{documented.artifactId}"
 				repository="@{nexusUrl}content/repositories/snapshots/"
 				scmUrl="@{project.scm.url}"
-			/>
+			>
+				<ul>
+					<li>Updated to <ao:a href="https://axis.apache.org/axis2/java/core/release-notes/1.8.0.html">Apache Axis2 1.8.0</ao:a>.</li>
+				</ul>
+			</changelog:release>
 		</c:if>
 
 		<changelog:release

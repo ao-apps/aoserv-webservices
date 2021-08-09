@@ -23,7 +23,7 @@ along with aoserv-webservices.  If not, see <http://www.gnu.org/licenses />.
 -->
 <serviceGroup>
 	<service name="AOServService_v1_0" scope="application">
-		<Description>AOServService 1.0</Description>
+		<description>AOServService 1.0</description>
 		<messageReceivers>
 			<messageReceiver mep="http://www.w3.org/ns/wsdl/in-only" class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver"/>
 			<messageReceiver mep="http://www.w3.org/ns/wsdl/in-out"  class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
