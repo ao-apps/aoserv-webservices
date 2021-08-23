@@ -58,6 +58,8 @@ along with aoserv-webservices.  If not, see <http://www.gnu.org/licenses />.
 		<sonar.projectKey>com.aoapps.platform:aoapps-webservices<!-- TODO: ${project.groupId}:${project.artifactId} --></sonar.projectKey>
 		<sonar.organization>aoindustries</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<!-- TODO: Implement tests -->
+		<sonar.coverage.exclusions>**.*</sonar.coverage.exclusions>
 	</properties>
 
 	<name>AOServ Webservices</name>
