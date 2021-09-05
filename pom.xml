@@ -29,7 +29,7 @@ along with aoserv-webservices.  If not, see <http://www.gnu.org/licenses />.
 		<relativePath>../../oss/parent/pom.xml</relativePath>
 	</parent>
 
-	<groupId>com.aoindustries</groupId><artifactId>aoserv-webservices</artifactId><version>1.86.0</version>
+	<groupId>com.aoindustries</groupId><artifactId>aoserv-webservices</artifactId><version>1.86.0-POST-SNAPSHOT</version>
 	<packaging>aar</packaging>
 
 	<properties>
@@ -94,7 +94,7 @@ along with aoserv-webservices.  If not, see <http://www.gnu.org/licenses />.
 		<connection>scm:git:git://github.com/aoindustries/aoserv-webservices.git</connection>
 		<developerConnection>scm:git:git@github.com:aoindustries/aoserv-webservices.git</developerConnection>
 		<url>https://github.com/aoindustries/aoserv-webservices</url>
-		<tag>aoserv-webservices-1.86.0</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
