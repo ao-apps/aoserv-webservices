@@ -92,16 +92,16 @@ public class AOServService {
 	private static final Logger logger = Logger.getLogger(AOServService.class.getName());
 
 	// <editor-fold defaultstate="collapsed" desc="Exception conversion">
-	private static RemoteException toRemoteException(Throwable T) {
-		logger.log(Level.SEVERE, null, T);
-		if(T.getClass()==RemoteException.class && T.getCause()==null) return (RemoteException)T;
-		return new RemoteException(T.getLocalizedMessage());
+	private static RemoteException toRemoteException(Throwable t) {
+		logger.log(Level.SEVERE, null, t);
+		if(t.getClass() == RemoteException.class && t.getCause() == null) return (RemoteException)t;
+		return new RemoteException(t.getLocalizedMessage());
 	}
 
-	private static LoginException toLoginException(Throwable T) {
-		logger.log(Level.SEVERE, null, T);
-		if(T.getClass()==LoginException.class && T.getCause()==null) return (LoginException)T;
-		return new LoginException(T.getLocalizedMessage());
+	private static LoginException toLoginException(Throwable t) {
+		logger.log(Level.SEVERE, null, t);
+		if(t.getClass() == LoginException.class && t.getCause() == null) return (LoginException)t;
+		return new LoginException(t.getLocalizedMessage());
 	}
 	// </editor-fold>
 
