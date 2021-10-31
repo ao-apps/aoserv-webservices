@@ -18,7 +18,7 @@
  * GNU Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with aoserv-webservices.  If not, see <http://www.gnu.org/licenses/>.
+ * along with aoserv-webservices.  If not, see <https://www.gnu.org/licenses/>.
  */
 package com.aoindustries.aoserv.webservices.v1_0;
 
