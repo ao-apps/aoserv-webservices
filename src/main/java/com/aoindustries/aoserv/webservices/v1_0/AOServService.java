@@ -160,7 +160,7 @@ public class AOServService {
 	/**
 	 * Cache of connectors.
 	 */
-	private static final ConcurrentMap<ConnectorCacheKey, AOServConnector> connectorCache = new ConcurrentHashMap<ConnectorCacheKey, AOServConnector>();
+	private static final ConcurrentMap<ConnectorCacheKey, AOServConnector> connectorCache = new ConcurrentHashMap<>();
 
 	@SuppressWarnings({"UseSpecificCatch", "TooBroadCatch"})
 	private static AOServConnector getConnector(Credentials credentials) throws LoginException, RemoteException {
