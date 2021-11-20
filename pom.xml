@@ -34,7 +34,10 @@ along with aoserv-webservices.  If not, see <https://www.gnu.org/licenses/>.
 
 	<properties>
 		<module.name>com.aoindustries.aoserv.webservices</module.name>
-		<!-- Stay on Java 1.8 since Axis fails with "Error looking for paramter names in bytecode: unexpected bytes in file". -->
+		<!--
+			Stay on Java 1.8 since Axis fails with "Error looking for paramter names in bytecode: unexpected bytes in file".
+			TODO: This problem might be only an issue with Lambdas.  Review other webservices projects.
+		-->
 		<javase.version>1.8</javase.version>
 		<javase.release>8</javase.release>
 		<javadoc.link.javase>${javadoc.link.javase.8}</javadoc.link.javase>
@@ -103,9 +106,15 @@ along with aoserv-webservices.  If not, see <https://www.gnu.org/licenses/>.
 	</issueManagement>
 
 	<ciManagement>
+		<system>Jenkins</system>
+		<url>https://jenkins.aoindustries.com/job/ao/job/aoserv/job/webservices/</url>
+	</ciManagement>
+	<!-- Only one allowed in POM:
+	<ciManagement>
 		<system>GitHub Actions</system>
 		<url>https://github.com/ao-apps/aoserv-webservices/actions</url>
 	</ciManagement>
+	-->
 
 	<repositories>
 		<!-- Repository required here, too, so can find parent -->
@@ -157,11 +166,6 @@ along with aoserv-webservices.  If not, see <https://www.gnu.org/licenses/>.
 			<plugin>
 				<groupId>org.apache.axis2</groupId><artifactId>axis2-aar-maven-plugin</artifactId>
 				<extensions>true</extensions>
-			</plugin>
-			<!-- Never attach sources for snapshot, see https://stackoverflow.com/a/39139979 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId><artifactId>maven-source-plugin</artifactId>
-				<configuration><skipSource>${build.isSnapshot}</skipSource></configuration>
 			</plugin>
 		</plugins>
 	</build>
