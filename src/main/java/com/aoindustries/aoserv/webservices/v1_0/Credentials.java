@@ -1,6 +1,6 @@
 /*
  * aoserv-webservices - SOAP web services for the AOServ Platform.
- * Copyright (C) 2009-2013, 2018, 2020  AO Industries, Inc.
+ * Copyright (C) 2009-2013, 2018, 2020, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -20,6 +20,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with aoserv-webservices.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 package com.aoindustries.aoserv.webservices.v1_0;
 
 import com.aoindustries.aoserv.client.dto.UserName;
