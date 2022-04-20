@@ -30,40 +30,40 @@ import com.aoindustries.aoserv.client.dto.UserName;
  */
 public class Credentials {
 
-	private String locale;
-	private UserName username;
-	private String password;
-	private UserName switchUser;
+  private String locale;
+  private UserName username;
+  private String password;
+  private UserName switchUser;
 
-	public String getLocale() {
-		return locale;
-	}
+  public String getLocale() {
+    return locale;
+  }
 
-	public void setLocale(String locale) {
-		this.locale = locale;
-	}
+  public void setLocale(String locale) {
+    this.locale = locale;
+  }
 
-	public UserName getUsername() {
-		return username;
-	}
+  public UserName getUsername() {
+    return username;
+  }
 
-	public void setUsername(UserName username) {
-		this.username = username;
-	}
+  public void setUsername(UserName username) {
+    this.username = username;
+  }
 
-	public String getPassword() {
-		return password;
-	}
+  public String getPassword() {
+    return password;
+  }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-	public UserName getSwitchUser() {
-		return switchUser;
-	}
+  public UserName getSwitchUser() {
+    return switchUser;
+  }
 
-	public void setSwitchUser(UserName switchUser) {
-		this.switchUser = switchUser;
-	}
+  public void setSwitchUser(UserName switchUser) {
+    this.switchUser = switchUser;
+  }
 }
