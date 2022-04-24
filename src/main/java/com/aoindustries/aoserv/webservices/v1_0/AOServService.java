@@ -96,7 +96,7 @@ public class AOServService {
   private static RemoteException toRemoteException(Throwable t) {
     logger.log(Level.SEVERE, null, t);
     if (t.getClass() == RemoteException.class && t.getCause() == null) {
-      return (RemoteException)t;
+      return (RemoteException) t;
     }
     return new RemoteException(t.getLocalizedMessage());
   }
@@ -104,10 +104,11 @@ public class AOServService {
   private static LoginException toLoginException(Throwable t) {
     logger.log(Level.SEVERE, null, t);
     if (t.getClass() == LoginException.class && t.getCause() == null) {
-      return (LoginException)t;
+      return (LoginException) t;
     }
     return new LoginException(t.getLocalizedMessage());
   }
+
   // </editor-fold>
 
   // <editor-fold defaultstate="collapsed" desc="Static Utilities">
@@ -139,8 +140,8 @@ public class AOServService {
       this.password = NullArgumentException.checkNotNull(password, "password");
       this.switchUser = NullArgumentException.checkNotNull(switchUser, "switchUser");
       int newHash = username.hashCode();
-      newHash = newHash*31 + password.hashCode();
-      newHash = newHash*31 + switchUser.hashCode();
+      newHash = newHash * 31 + password.hashCode();
+      newHash = newHash * 31 + switchUser.hashCode();
       this.hash = newHash;
     }
 
@@ -154,14 +155,14 @@ public class AOServService {
       if (!(obj instanceof ConnectorCacheKey)) {
         return false;
       }
-      ConnectorCacheKey other = (ConnectorCacheKey)obj;
+      ConnectorCacheKey other = (ConnectorCacheKey) obj;
       return
-        // hash check shortcut
-        hash == other.hash // TODO: No shortcut for length-constant time?
-        // .equals fields
-        && username.equals(other.username)
-        && password.equals(other.password)
-        && switchUser.equals(other.switchUser)
+          // hash check shortcut
+          hash == other.hash // TODO: No shortcut for length-constant time?
+              // .equals fields
+              && username.equals(other.username)
+              && password.equals(other.password)
+              && switchUser.equals(other.switchUser)
       ;
     }
   }
@@ -177,9 +178,9 @@ public class AOServService {
       com.aoindustries.aoserv.client.account.User.Name username = com.aoindustries.aoserv.client.account.User.Name.valueOf(credentials.getUsername().getName());
       String password = credentials.getPassword();
       com.aoindustries.aoserv.client.account.User.Name switchUser = com.aoindustries.aoserv.client.account.User.Name.valueOf(
-        credentials.getSwitchUser() == null
-        ? null
-        : nullIfEmpty(credentials.getSwitchUser().getName())
+          credentials.getSwitchUser() == null
+              ? null
+              : nullIfEmpty(credentials.getSwitchUser().getName())
       );
       if (switchUser == null) {
         switchUser = username;
@@ -190,10 +191,10 @@ public class AOServService {
       if (conn == null) {
         try {
           conn = AOServConnector.getConnector(
-            switchUser,
-            username,
-            password,
-            null
+              switchUser,
+              username,
+              password,
+              null
           );
           conn.ping();
           AOServConnector existing = connectorCache.putIfAbsent(cacheKey, conn);
@@ -203,7 +204,7 @@ public class AOServService {
         } catch (ThreadDeath td) {
           throw td;
         } catch (IOException err) {
-          String message=err.getMessage();
+          String message = err.getMessage();
           if (message != null) {
             if (message.contains("Unable to find BusinessAdministrator")) {
               throw toLoginException(new AccountNotFoundException("Account Not Found"));
@@ -229,6 +230,7 @@ public class AOServService {
   }
 
   private static final ConcurrentMap<Class<?>, PropertyDescriptor[]> stringProperties = new ConcurrentHashMap<>();
+
   private static PropertyDescriptor[] getStringProperties(Class<?> type) throws IntrospectionException {
     PropertyDescriptor[] props = stringProperties.get(type);
     if (props == null) {
@@ -265,7 +267,7 @@ public class AOServService {
     try {
       int size = set.size();
       @SuppressWarnings("unchecked")
-      T[] array = (T[])Array.newInstance(clazz, size);
+      T[] array = (T[]) Array.newInstance(clazz, size);
 
       PropertyDescriptor[] stringProps = getStringProperties(clazz);
       int index = 0;
@@ -274,11 +276,11 @@ public class AOServService {
 
         // Encode string properties to avoid invalid characters
         for (PropertyDescriptor property : stringProps) {
-          String value = (String)property.getReadMethod().invoke(dto);
+          String value = (String) property.getReadMethod().invoke(dto);
           String encoded = WsEncoder.encode(value);
           if (
-            // String identity equals intentional:
-            encoded != value
+              // String identity equals intentional:
+              encoded != value
           ) {
             //System.out.println("WsEncoded: "+dtoFactory.getClass().getName()+": "+dtoFactory);
             property.getWriteMethod().invoke(dto, encoded);
@@ -287,7 +289,7 @@ public class AOServService {
         array[index++] = dto;
       }
       if (index != size) {
-        throw new AssertionError("index != size: "+index+" != "+size);
+        throw new AssertionError("index != size: " + index + " != " + size);
       }
       return array;
     } catch (ThreadDeath td) {
@@ -299,6 +301,7 @@ public class AOServService {
       throw toRemoteException(t);
     }
   }
+
   // </editor-fold>
 
   // <editor-fold defaultstate="collapsed" desc="Validation">
@@ -546,8 +549,8 @@ public class AOServService {
       ThreadLocale.set(getLocale(credentials));
       AOServConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoapps.net.Port.validate(
-        port.getPort(),
-        Protocol.valueOf(port.getProtocol())
+          port.getPort(),
+          Protocol.valueOf(port.getProtocol())
       );
       return result.isValid() ? null : result.toString();
     } finally {
@@ -614,6 +617,7 @@ public class AOServService {
       ThreadLocale.set(oldLocale);
     }
   }
+
   // </editor-fold>
 
   // <editor-fold defaultstate="collapsed" desc="Passwords">
@@ -632,6 +636,7 @@ public class AOServService {
       ThreadLocale.set(oldLocale);
     }
   }
+
   // </editor-fold>
 
   // <editor-fold defaultstate="collapsed" desc="Commands">
