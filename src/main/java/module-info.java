@@ -33,4 +33,4 @@ module com.aoindustries.aoserv.webservices {
   requires java.logging;
   requires java.rmi;
   requires java.sql;
-}
+} // TODO: Avoiding rewrite-maven-plugin-4.22.2 truncation
