@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoserv-webservices - SOAP web services for the AOServ Platform.
-Copyright (C) 2009-2013, 2020, 2021, 2022  AO Industries, Inc.
+Copyright (C) 2022  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -21,15 +21,19 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with aoserv-webservices.  If not, see <https://www.gnu.org/licenses/>.
 -->
-<serviceGroup>
-  <service name="AoservService_v1_0" scope="application">
-    <description>AoservService 1.0</description>
-    <messageReceivers>
-      <messageReceiver mep="http://www.w3.org/ns/wsdl/in-only" class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver"/>
-      <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out"  class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
-    </messageReceivers>
-    <parameter name="ServiceClass">com.aoindustries.aoserv.webservices.v1_0.AoservService</parameter>
-    <!--<parameter locked="false" name="useOriginalwsdl">true</parameter>-->
-    <!--<parameter locked="false" name="modifyUserWSDLPortAddress">false</parameter>-->
-  </service>
-</serviceGroup>
+<!DOCTYPE suppressions PUBLIC
+  "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+  "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+
+  <!-- TODO: Complete Javadocs -->
+  <suppress checks="MissingJavadocMethod" />
+
+  <!-- We use underscores in per-version packages -->
+  <suppress
+    checks="PackageName"
+    message="'com\.aoindustries\.aoserv\.webservices\.v[0-9]+_[0-9]+'"
+  />
+
+</suppressions>

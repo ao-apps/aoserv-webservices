@@ -39,7 +39,7 @@ import com.aoapps.net.dto.InetAddress;
 import com.aoapps.net.dto.MacAddress;
 import com.aoapps.net.dto.Port;
 import com.aoapps.security.Password;
-import com.aoindustries.aoserv.client.AOServConnector;
+import com.aoindustries.aoserv.client.AoservConnector;
 import com.aoindustries.aoserv.client.dto.AccountName;
 import com.aoindustries.aoserv.client.dto.Gecos;
 import com.aoindustries.aoserv.client.dto.HashedKey;
@@ -49,10 +49,10 @@ import com.aoindustries.aoserv.client.dto.LinuxGroupName;
 import com.aoindustries.aoserv.client.dto.LinuxId;
 import com.aoindustries.aoserv.client.dto.LinuxServer;
 import com.aoindustries.aoserv.client.dto.LinuxUserName;
-import com.aoindustries.aoserv.client.dto.MySQLDatabaseName;
-import com.aoindustries.aoserv.client.dto.MySQLServerName;
-import com.aoindustries.aoserv.client.dto.MySQLTableName;
-import com.aoindustries.aoserv.client.dto.MySQLUserName;
+import com.aoindustries.aoserv.client.dto.MysqlDatabaseName;
+import com.aoindustries.aoserv.client.dto.MysqlServerName;
+import com.aoindustries.aoserv.client.dto.MysqlTableName;
+import com.aoindustries.aoserv.client.dto.MysqlUserName;
 import com.aoindustries.aoserv.client.dto.PosixPath;
 import com.aoindustries.aoserv.client.dto.PostgresDatabaseName;
 import com.aoindustries.aoserv.client.dto.PostgresServerName;
@@ -80,17 +80,19 @@ import javax.security.auth.login.LoginException;
 
 /**
  * Exposes the connector configured in aoserv-client.properties as a web service.
- *
- * 1) Update source: Clean/Build aoserv-webservices
- * 2) Deploy: Clean/Run aoserv-webservices-webapp
- * 3) Rebuild client (see wsdl2java)
- *
+ * <ol>
+ * <li>Update source: Clean/Build aoserv-webservices</li>
+ * <li>Deploy: Clean/Run aoserv-webservices-webapp</li>
+ * <li>Rebuild client (see wsdl2java)</li>
+ * </ol>
+ * <p>
  * All primitives are nillable in generated WSDL: http://issues.apache.org/jira/browse/AXIS2-4542
  * It works, but is less efficient due to everything being wrapped in client side.
+ * </p>
  */
-public class AOServService {
+public class AoservService {
 
-  private static final Logger logger = Logger.getLogger(AOServService.class.getName());
+  private static final Logger logger = Logger.getLogger(AoservService.class.getName());
 
   // <editor-fold defaultstate="collapsed" desc="Exception conversion">
   private static RemoteException toRemoteException(Throwable t) {
@@ -162,18 +164,17 @@ public class AOServService {
               // .equals fields
               && username.equals(other.username)
               && password.equals(other.password)
-              && switchUser.equals(other.switchUser)
-      ;
+              && switchUser.equals(other.switchUser);
     }
   }
 
   /**
    * Cache of connectors.
    */
-  private static final ConcurrentMap<ConnectorCacheKey, AOServConnector> connectorCache = new ConcurrentHashMap<>();
+  private static final ConcurrentMap<ConnectorCacheKey, AoservConnector> connectorCache = new ConcurrentHashMap<>();
 
   @SuppressWarnings({"UseSpecificCatch", "TooBroadCatch"})
-  private static AOServConnector getConnector(Credentials credentials) throws LoginException, RemoteException {
+  private static AoservConnector getConnector(Credentials credentials) throws LoginException, RemoteException {
     try {
       com.aoindustries.aoserv.client.account.User.Name username = com.aoindustries.aoserv.client.account.User.Name.valueOf(credentials.getUsername().getName());
       String password = credentials.getPassword();
@@ -187,17 +188,17 @@ public class AOServService {
       }
       ConnectorCacheKey cacheKey = new ConnectorCacheKey(username, password, switchUser);
       // Check cache first
-      AOServConnector conn = connectorCache.get(cacheKey);
+      AoservConnector conn = connectorCache.get(cacheKey);
       if (conn == null) {
         try {
-          conn = AOServConnector.getConnector(
+          conn = AoservConnector.getConnector(
               switchUser,
               username,
               password,
               null
           );
           conn.ping();
-          AOServConnector existing = connectorCache.putIfAbsent(cacheKey, conn);
+          AoservConnector existing = connectorCache.putIfAbsent(cacheKey, conn);
           if (existing != null) {
             conn = existing;
           }
@@ -309,7 +310,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoindustries.aoserv.client.account.Account.Name.validate(accounting.getAccounting());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -321,7 +322,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoapps.net.DomainLabel.validate(label.getLabel());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -333,7 +334,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoapps.net.DomainLabels.validate(labels.getLabels());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -345,7 +346,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoapps.net.DomainName.validate(domain.getDomain());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -357,7 +358,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoapps.net.Email.validate(email.getLocalPart(), email.getDomain().getDomain());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -369,7 +370,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoindustries.aoserv.client.linux.User.Gecos.validate(gecos.getValue());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -381,7 +382,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoindustries.aoserv.client.linux.Group.Name.validate(groupName.getName());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -393,7 +394,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       try {
         com.aoapps.security.HashedKey.valueOf(hashedKey.getHashedKey());
         return null;
@@ -416,7 +417,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       try {
         com.aoapps.security.HashedPassword.valueOf(hashedPassword.getHashedPassword());
         return null;
@@ -439,7 +440,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoapps.net.HostAddress.validate(hostname.getAddress());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -451,7 +452,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoapps.net.InetAddress.validate(ip.getAddress());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -459,11 +460,11 @@ public class AOServService {
     }
   }
 
-  public String validateLinuxID(Credentials credentials, LinuxId linuxId) throws LoginException, RemoteException {
+  public String validateLinuxId(Credentials credentials, LinuxId linuxId) throws LoginException, RemoteException {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoindustries.aoserv.client.linux.LinuxId.validate(linuxId.getId());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -475,7 +476,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoindustries.aoserv.client.linux.User.Name.validate(name.getName());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -487,7 +488,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoapps.net.MacAddress.validate(address.getAddress());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -495,11 +496,11 @@ public class AOServService {
     }
   }
 
-  public String validateMySQLDatabaseName(Credentials credentials, MySQLDatabaseName name) throws LoginException, RemoteException {
+  public String validateMysqlDatabaseName(Credentials credentials, MysqlDatabaseName name) throws LoginException, RemoteException {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoindustries.aoserv.client.mysql.Database.Name.validate(name.getName());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -507,11 +508,11 @@ public class AOServService {
     }
   }
 
-  public String validateMySQLServerName(Credentials credentials, MySQLServerName name) throws LoginException, RemoteException {
+  public String validateMysqlServerName(Credentials credentials, MysqlServerName name) throws LoginException, RemoteException {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoindustries.aoserv.client.mysql.Server.Name.validate(name.getName());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -519,23 +520,23 @@ public class AOServService {
     }
   }
 
-  public String validateMySQLTableName(Credentials credentials, MySQLTableName name) throws LoginException, RemoteException {
+  public String validateMysqlTableName(Credentials credentials, MysqlTableName name) throws LoginException, RemoteException {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
-      ValidationResult result = com.aoindustries.aoserv.client.mysql.Table_Name.validate(name.getName());
+      AoservConnector conn = getConnector(credentials); // Checks authentication
+      ValidationResult result = com.aoindustries.aoserv.client.mysql.TableName.validate(name.getName());
       return result.isValid() ? null : result.toString();
     } finally {
       ThreadLocale.set(oldLocale);
     }
   }
 
-  public String validateMySQLUserName(Credentials credentials, MySQLUserName name) throws LoginException, RemoteException {
+  public String validateMysqlUserName(Credentials credentials, MysqlUserName name) throws LoginException, RemoteException {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoindustries.aoserv.client.mysql.User.Name.validate(name.getName());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -547,7 +548,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoapps.net.Port.validate(
           port.getPort(),
           Protocol.valueOf(port.getProtocol())
@@ -562,7 +563,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoindustries.aoserv.client.postgresql.Database.Name.validate(name.getName());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -574,7 +575,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoindustries.aoserv.client.postgresql.Server.Name.validate(name.getName());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -586,7 +587,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoindustries.aoserv.client.postgresql.User.Name.validate(userName.getName());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -598,7 +599,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoindustries.aoserv.client.linux.PosixPath.validate(posixPath.getPath());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -610,7 +611,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials); // Checks authentication
+      AoservConnector conn = getConnector(credentials); // Checks authentication
       ValidationResult result = com.aoindustries.aoserv.client.account.User.Name.validate(name.toString());
       return result.isValid() ? null : result.toString();
     } finally {
@@ -626,7 +627,7 @@ public class AOServService {
     Locale oldLocale = ThreadLocale.get();
     try {
       ThreadLocale.set(getLocale(credentials));
-      AOServConnector conn = getConnector(credentials);
+      AoservConnector conn = getConnector(credentials);
       return com.aoapps.security.HashedPassword.valueOf(hashedPassword.getHashedPassword()).matches(new Password(plaintext.toCharArray()));
     } catch (ThreadDeath | LoginException e) {
       throw e;

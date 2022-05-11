@@ -26,6 +26,8 @@ package com.aoindustries.aoserv.webservices.v1_0;
 import com.aoindustries.aoserv.client.dto.UserName;
 
 /**
+ * Authentication credentials.
+ *
  * @author  AO Industries, Inc.
  */
 public class Credentials {
