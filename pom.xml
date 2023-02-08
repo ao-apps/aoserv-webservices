@@ -33,6 +33,7 @@ along with aoserv-webservices.  If not, see <https://www.gnu.org/licenses/>.
   <packaging>aar</packaging>
 
   <properties>
+    <project.build.outputTimestamp>2023-02-08T21:06:04Z</project.build.outputTimestamp>
     <module.name>com.aoindustries.aoserv.webservices</module.name>
     <!--
       Stay on Java 1.8 since Axis fails with "Error looking for paramter names in bytecode: unexpected bytes in file".
