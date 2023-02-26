@@ -21,7 +21,7 @@ SOAP web services for the [AOServ Platform](https://aoindustries.com/aoserv/).
 * [Project Home](https://aoindustries.com/aoserv/webservices/)
 * [Changelog](https://aoindustries.com/aoserv/webservices/changelog)
 * [API Docs](https://aoindustries.com/aoserv/webservices/apidocs/)
-* [Maven Central Repository](https://search.maven.org/artifact/com.aoindustries/aoserv-webservices)
+* [Maven Central Repository](https://central.sonatype.com/search?namespace=com.aoindustries&q=a%3Aaoserv-webservices)
 * [GitHub](https://github.com/ao-apps/aoserv-webservices)
 
 ## Modules
