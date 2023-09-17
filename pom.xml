@@ -33,6 +33,8 @@ along with aoserv-webservices.  If not, see <https://www.gnu.org/licenses/>.
   <packaging>aar</packaging>
 
   <properties>
+    <!-- Must be set to ${git.commit.time} for snapshots or ISO 8601 timestamp for releases. -->
+    <project.build.outputTimestamp>${git.commit.time}</project.build.outputTimestamp>
     <module.name>com.aoindustries.aoserv.webservices</module.name>
     <!--
       Stay on Java 1.8 since Axis fails with "Error looking for paramter names in bytecode: unexpected bytes in file".
