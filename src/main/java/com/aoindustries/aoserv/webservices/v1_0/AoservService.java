@@ -1,6 +1,6 @@
 /*
  * aoserv-webservices - SOAP web services for the AOServ Platform.
- * Copyright (C) 2009-2013, 2017, 2018, 2019, 2020, 2021, 2022, 2024  AO Industries, Inc.
+ * Copyright (C) 2009-2013, 2017, 2018, 2019, 2020, 2021, 2022, 2024, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -241,7 +241,7 @@ public class AoservService {
           newStringProps.add(property);
         }
       }
-      props = newStringProps.toArray(new PropertyDescriptor[newStringProps.size()]);
+      props = newStringProps.toArray(PropertyDescriptor[]::new);
       stringProperties.put(type, props);
     }
     return props;
