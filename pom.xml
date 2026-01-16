@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 aoserv-webservices - SOAP web services for the AOServ Platform.
-Copyright (C) 2021, 2022, 2023, 2024, 2025  AO Industries, Inc.
+Copyright (C) 2021, 2022, 2023, 2024, 2025, 2026  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -36,6 +36,10 @@ along with aoserv-webservices.  If not, see <https://www.gnu.org/licenses/>.
     <!-- Must be set to ${git.commit.time} for snapshots or ISO 8601 timestamp for releases. -->
     <project.build.outputTimestamp>${git.commit.time}</project.build.outputTimestamp>
     <module.name>com.aoindustries.aoserv.webservices</module.name>
+    <!-- Java 17 -->
+    <javase.version>17</javase.version>
+    <javase.release>17</javase.release>
+    <javadoc.link.javase>${javadoc.link.javase.17}</javadoc.link.javase>
 
     <javadoc.breadcrumbs><![CDATA[<a target="${javadoc.target}" href="https://aoindustries.com/aoserv/">AOServ</a>
 / <a target="${javadoc.target}" href="${project.url}">Webservices</a>]]></javadoc.breadcrumbs>

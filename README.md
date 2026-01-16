@@ -3,7 +3,7 @@
 [![project: alpha](https://aoindustries.com/ao-badges/project-alpha.svg)](https://aoindustries.com/life-cycle#project-alpha)
 [![management: preview](https://aoindustries.com/ao-badges/management-preview.svg)](https://aoindustries.com/life-cycle#management-preview)
 [![packaging: developmental](https://aoindustries.com/ao-badges/packaging-developmental.svg)](https://aoindustries.com/life-cycle#packaging-developmental)  
-[![java: &gt;= 11](https://aoindustries.com/ao-badges/java-11.svg)](https://docs.oracle.com/en/java/javase/11/docs/api/)
+[![java: &gt;= 17](https://aoindustries.com/ao-badges/java-17.svg)](https://docs.oracle.com/en/java/javase/17/)
 [![license: LGPL v3](https://aoindustries.com/ao-badges/license-lgpl-3.0.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 
 [![Build](https://github.com/ao-apps/aoserv-webservices/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/ao-apps/aoserv-webservices/actions?query=workflow%3ABuild)

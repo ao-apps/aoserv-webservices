@@ -47,6 +47,9 @@ along with aoserv-webservices.  If not, see <https://www.gnu.org/licenses/>.
     <documented.artifactId>aoserv-webservices</documented.artifactId>
     <documented.name>AOServ Webservices</documented.name>
     <documented.description>SOAP web services for the AOServ Platform.</documented.description>
+    <!-- Java 17 -->
+    <documented.javase.version>17</documented.javase.version>
+    <documented.javadoc.link.javase>${javadoc.link.javase.17}</documented.javadoc.link.javase>
 
     <description.html><![CDATA[Documentation for <a target="${javadoc.target}" href="${project.url}">${documented.name}</a> in <a target="${javadoc.target}" href="https://semanticcms.com/">SemanticCMS</a> format.]]></description.html>
     <!-- SonarQube -->
