@@ -1,6 +1,6 @@
 /*
  * aoserv-webservices - SOAP web services for the AOServ Platform.
- * Copyright (C) 2009-2013, 2017, 2018, 2019, 2020, 2021, 2022, 2024, 2025  AO Industries, Inc.
+ * Copyright (C) 2009-2013, 2017, 2018, 2019, 2020, 2021, 2022, 2024, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -201,8 +201,6 @@ public class AoservService {
           if (existing != null) {
             conn = existing;
           }
-        } catch (ThreadDeath td) {
-          throw td;
         } catch (IOException err) {
           String message = err.getMessage();
           if (message != null) {
@@ -222,7 +220,7 @@ public class AoservService {
         }
       }
       return conn;
-    } catch (ThreadDeath | LoginException | RemoteException td) {
+    } catch (LoginException | RemoteException td) {
       throw td;
     } catch (Throwable t) {
       throw toRemoteException(t);
@@ -292,8 +290,6 @@ public class AoservService {
         throw new AssertionError("index != size: " + index + " != " + size);
       }
       return array;
-    } catch (ThreadDeath td) {
-      throw td;
     } catch (InvocationTargetException e) {
       Throwable cause = e.getCause();
       throw toRemoteException(cause == null ? e : cause);
@@ -628,7 +624,7 @@ public class AoservService {
       ThreadLocale.set(getLocale(credentials));
       AoservConnector conn = getConnector(credentials);
       return com.aoapps.security.HashedPassword.valueOf(hashedPassword.getHashedPassword()).matches(new Password(plaintext.toCharArray()));
-    } catch (ThreadDeath | LoginException e) {
+    } catch (LoginException e) {
       throw e;
     } catch (Throwable t) {
       throw toRemoteException(t);
@@ -650,7 +646,7 @@ public class AoservService {
     try {
       ThreadLocale.set(getLocale(credentials));
       return getDtoArray(LinuxDaemonAcl.class, getConnector(credentials).getLinux().getDaemonAcl().getRows());
-    } catch (ThreadDeath | LoginException | RemoteException e) {
+    } catch (LoginException | RemoteException e) {
       throw e;
     } catch (Throwable t) {
       throw toRemoteException(t);
@@ -665,7 +661,7 @@ public class AoservService {
     try {
       ThreadLocale.set(getLocale(credentials));
       return getDtoArray(LinuxServer.class, getConnector(credentials).getLinux().getServer().getRows());
-    } catch (ThreadDeath | LoginException | RemoteException e) {
+    } catch (LoginException | RemoteException e) {
       throw e;
     } catch (Throwable t) {
       throw toRemoteException(t);
