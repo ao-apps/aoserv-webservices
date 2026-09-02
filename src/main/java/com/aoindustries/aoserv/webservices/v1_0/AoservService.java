@@ -245,17 +245,17 @@ public class AoservService {
     return props;
   }
 
-  /*private static void checkDtoString(PropertyDescriptor property, String value) throws RemoteException {
-    if (value != null) {
-      int len = value.length();
-      for (int i=0;i<len;i++) {
-        char ch = value.charAt(i);
-        if (ch<' ' && ch != '\n' && ch != '\r') {
-          throw new RemoteException("Invalid character in property "+property.getName()+": "+Integer.toString(ch, 16)+": "+value);
-        }
-      }
-    }
-  }*/
+  // private static void checkDtoString(PropertyDescriptor property, String value) throws RemoteException {
+  //   if (value != null) {
+  //     int len = value.length();
+  //     for (int i=0;i<len;i++) {
+  //       char ch = value.charAt(i);
+  //       if (ch<' ' && ch != '\n' && ch != '\r') {
+  //         throw new RemoteException("Invalid character in property "+property.getName()+": "+Integer.toString(ch, 16)+": "+value);
+  //       }
+  //     }
+  //   }
+  // }
 
   /**
    * Converts the collection to an array of data transfer objects in arbitrary order.
