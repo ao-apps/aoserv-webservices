@@ -95,7 +95,7 @@ public class AoservService {
 
   // <editor-fold defaultstate="collapsed" desc="Exception conversion">
   private static RemoteException toRemoteException(Throwable t) {
-    logger.log(Level.SEVERE, null, t);
+    logger.log(Level.SEVERE, "TODO: message here", t);
     if (t.getClass() == RemoteException.class && t.getCause() == null) {
       return (RemoteException) t;
     }
@@ -103,7 +103,7 @@ public class AoservService {
   }
 
   private static LoginException toLoginException(Throwable t) {
-    logger.log(Level.SEVERE, null, t);
+    logger.log(Level.SEVERE, "TODO: message here", t);
     if (t.getClass() == LoginException.class && t.getCause() == null) {
       return (LoginException) t;
     }
